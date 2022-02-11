@@ -19,7 +19,8 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
-
+  
+  console.log('hello')
   const card = document.createElement('div')
   const headline = document.createElement('div')
   const author = document.createElement('div')
@@ -41,6 +42,10 @@ const Card = (article) => {
   headline.classList.add('headline')
   author.classList.add('author')
   imgContain.classList.add('img-container')
+  // console.log(article[0].headline)
+  card.addEventListener('click', () => {
+    console.log(article.headline)
+  })
 
   return card
 }
@@ -57,15 +62,23 @@ const cardAppender = (selector) => {
   const parentElement = document.querySelector(selector)
   axios.get(`http://localhost:5000/api/articles`)
     .then(res => {
-      console.log(res.data.articles)
-      const data = res.data.articles.javascript
-      data.forEach(elem => {
-        parentElement.appendChild(Card(elem))
-      })
-      // parentElement.appendChild(Card(data[0]))
-      // parentElement.appendChild(Card(data[1]))
-      // parentElement.appendChild(Card(data[2]))
-      // parentElement.appendChild(Card(data[3]))
+      const data = res.data.articles
+      console.log(data)
+      for(let i = 0; i < data.javascript.length; i++){
+        parentElement.appendChild(Card(data.javascript[i]))
+      }
+      for(let i = 0; i < data.bootstrap.length; i++){
+        parentElement.appendChild(Card(data.bootstrap[i]))
+      }
+      for(let i = 0; i < data.technology.length; i++){
+        parentElement.appendChild(Card(data.technology[i]))
+      }
+      for(let i = 0; i < data.jquery.length; i++){
+        parentElement.appendChild(Card(data.jquery[i]))
+      }
+      for(let i = 0; i < data.node.length; i++){
+        parentElement.appendChild(Card(data.node[i]))
+      }
     })
 }
 
